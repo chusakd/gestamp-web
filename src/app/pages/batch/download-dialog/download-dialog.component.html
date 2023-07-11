@@ -1,0 +1,33 @@
+<div mat-dialog-content>
+  <div class="card card-custom gutter-b card-stretch">
+      <div class="card-body d-flex flex-column">
+          <div class="flex-grow-1 pb-5 align-items-center">
+              <div class="text-center mb-6">
+                  <!-- <mat-icon color="accent" inline="true" class="icon-size">error_outline</mat-icon> -->
+              </div>
+              <div class="text-center mb-6">
+                  <h1>{{header}}</h1>
+              </div>
+              <div class="text-center mb-6">
+                <h3>{{batchDetail}}</h3>
+            </div>
+              <div class="text-center mb-6">
+                  <h3>{{msg}}</h3>
+              </div>
+              <div class="text-center mb-6 mt-5" style="height: 100px;">
+                <div class="spinner-border text-primary" *ngIf="onProcess || onCompress">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="text-primary" *ngIf="isFinish">
+                    <mat-icon class="icon-display">check_circle_outline</mat-icon>
+                </div>
+              </div>
+              <div class="text-center mb-6">
+                  <button id="cancel" class="btn btn-blue btn-lg" (click)="cancel();">Cancel</button>&nbsp;
+                  <button id="confirm" class="btn btn-main" style="width: 200px;"  (click)="startProcessDownload();" [disabled]="busy">Go to Downloads</button>
+                  <!-- <button id="download" class="btn btn-main btn-lg" (click)="download();" [disabled]="!isFinish || this.busy">Download</button> -->
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>Message</h2>
+<!--<div class="card-toolbar" align="right">
+    <button id="close" class="btn btn-primary" (click)="close();" style="width: 100px;">Close</button>
+</div>-->
+<div *ngIf="isInnerTag" class="card-body" [innerHTML]="msg"></div>
+<div *ngIf="!isInnerTag" class="card-body">{{msg}}</div>

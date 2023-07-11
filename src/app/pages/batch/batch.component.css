@@ -1,0 +1,279 @@
+.card {
+    background-color: transparent;
+}
+.btn-xs {
+    padding: 2px 5px;
+    font-size: 10px;
+    border-radius: 12px;
+}
+
+.column-left {
+    position: absolute;
+    left: 0px;
+}
+
+.column-right {
+    position: absolute;
+    right: 0px;
+}
+
+.btn-toggle {
+    width: unset !important;
+    font-size: 16px;
+    padding-top: 8px;
+    align-items: center;
+}
+
+.btn-space {
+    margin-left: 5px;
+    width: 100px;
+}
+
+.btn-narrow {
+    padding-left: 5px;
+    letter-spacing: -1px;
+}
+
+.btn-xl {
+    margin-top: 0px;
+    font-size: 16px;
+    border-radius: 20px;
+    width: 150px;
+    height: 34px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+}
+
+.text-info {
+    color: grey !important;
+    padding-left: 4px;
+    padding-top: 4px;
+    width: 110px;
+}
+
+.label-header {
+    display: block;
+}
+
+.mat-paginator-page-size {
+    display: none !important;
+}
+
+.icon-display {
+    color: grey;
+    width: 40px;
+    height: 25px;
+}
+
+.icon-duedate {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+.text-file {
+    font-size: 15px;
+    color: gray;
+    line-height: 0.7;
+    padding-left: 5px;
+    padding-top: 5px;
+    text-overflow: ellipsis;
+}
+
+.text-duedate {
+    font-size: 14px;
+    line-height: 14px;
+    color: #D0011B;
+    margin: 5px;
+    text-align: left;
+}
+
+.mat-raised-button.mat-warn {
+    background-color: #D0011B;
+}
+
+.mat-raised-button.mat-accent {
+    background-color: #E5A300;
+}
+
+.mat-raised-button.mat-disabled {
+    background-color: #A1A8B4;
+}
+
+.mat-raised-button.mat-secondary {
+    background-color: #1665C4;
+}
+
+.mat-raised-button.mat-success {
+    background-color: #26AA99;
+}
+
+.png-icon {
+    display: inline-block;
+    background-repeat: no-repeat no-repeat;
+    pointer-events: none;
+}
+
+.mat-button-toggle-group-appearance-standard {
+    border: none;
+}
+
+.mat-button-toggle-group {
+    display: inline;
+    height: 40px;
+    align-items: center;
+}
+
+.dd-submit {
+    margin-top: -24px;
+    margin-left: -24px;
+}
+
+.btn-more {
+    margin-left: -8px;
+    max-width: 10px;
+}
+
+/* success color */
+.mat-button.mat-success,
+.mat-stroked-button.mat-success {
+    color: #26AA99;
+}
+
+.mat-button.mat-success:hover,
+.mat-stroked-button.mat-success:hover {
+    background-color: #f0fff3;
+}
+
+.mat-raised-button.mat-success,
+.mat-flat-button.mat-success,
+.mat-fab.mat-success,
+.mat-mini-fab.mat-success {
+    color: #f0fff3;
+    background-color: #26AA99;
+}
+
+.mat-icon-button.mat-success {
+    color: #26AA99;
+}
+
+/* disabled color */
+.mat-button.mat-disabled,
+.mat-stroked-button.mat-disabled {
+    color: #A1A8B4;
+}
+
+.mat-button.mat-disabled:hover,
+.mat-stroked-button.mat-disabled:hover {
+    background-color: #f0fff3;
+}
+
+.mat-raised-button.mat-disabled,
+.mat-flat-button.mat-disabled,
+.mat-fab.mat-disabled,
+.mat-mini-fab.mat-disabled {
+    color: #f0fff3;
+    background-color: #A1A8B4;
+}
+
+.mat-icon-button.mat-disabled {
+    color: #A1A8B4;
+}
+
+/* secondary color */
+.mat-button.mat-secondary,
+.mat-stroked-button.mat-secondary {
+    color: #1665C4;
+}
+
+.mat-button.mat-secondary:hover,
+.mat-stroked-button.mat-secondary:hover {
+    background-color: #f0fff3;
+}
+
+.mat-raised-button.mat-secondary,
+.mat-flat-button.mat-secondary,
+.mat-fab.mat-secondary,
+.mat-mini-fab.mat-secondary {
+    color: #f0fff3;
+    background-color: #1665C4;
+}
+
+.mat-icon-button.mat-secondary {
+    color: #1665C4;
+}
+
+.mat-form-field {
+    width: 160px;
+}
+
+.date-picker-display {
+    width: 150px;
+    padding-top: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.label-xl {
+    padding: 2px 5px;
+    margin: 5px;
+    font-size: 18px;
+    border-radius: 5px;
+    display: inline;
+}
+
+.p-xl {
+    padding: 2px 5px;
+    margin: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    display: inline;
+}
+
+.card-margin {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.left-page {
+    display: flex;
+    justify-content: left;
+}
+
+.card-padding {
+    padding: 10px;
+}
+
+.margin-l {
+    margin-left: 20px;
+}
+
+.margin-t {
+    margin-top: 10px;
+}
+
+.btn-group-cus {
+    height: 40px;
+    margin-top: 24px;
+    min-width: 240px;
+}
+
+::ng-deep .mat-tooltip {
+    white-space: pre-line !important;
+    font-size: 14px;
+    max-width: 350px !important;
+}
+
+.align-center {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+.mat-mdc-paginator {
+    background-color: transparent;
+}

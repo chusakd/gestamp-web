@@ -1,0 +1,39 @@
+.main-container {
+  height: calc(100vh - 84px);
+  padding: 10px;
+  width: 100%;
+}
+
+.menu-button {
+  text-transform: capitalize;
+}
+
+.main-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-icon-no-color {
+  color: rbga(0, 0, 0, 0.54);
+}
+
+.header-logo {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  margin-left: -10px;
+  max-height: 60px;
+
+  .logo-default {
+    display: inline-block;
+    max-height: 60px;
+  }
+
+  .logo-sticky {
+    display: none;
+  }
+}
+.btn-menu {
+  padding: 20px;
+  margin-left: 10px;
+}

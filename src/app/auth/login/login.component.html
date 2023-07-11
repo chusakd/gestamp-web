@@ -1,0 +1,14 @@
+<mat-card [formGroup]="form" class="main-card">
+  <img alt="Logo" src="./assets/img/GeStamp_Duty_250.png" class="img-logo"/>
+  <mat-form-field class="input">
+    <mat-label>User:</mat-label>
+    <input matInput formControlName="username" (keyup.enter)="login()" />
+  </mat-form-field>
+  <mat-form-field class="input">
+    <mat-label>Pass:</mat-label>
+    <input matInput formControlName="password" type="password" (keyup.enter)="login()" />
+  </mat-form-field>
+  <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="login()">Sign In</button>
+  <a (click)="forgot()">Forgot Password</a>
+  <app-loading *ngIf="busy"></app-loading>
+</mat-card>

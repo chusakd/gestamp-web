@@ -1,0 +1,70 @@
+<!-- src\app\shared\components\sidenav\sidenav.component.html -->
+
+<div [class.dark-theme]="isDark"> <!-- ? we're wrapping whole content in a div, to handle dark/light theme -->
+  <mat-toolbar [color]="themeColor">
+      <div class="header-logo">
+        <a routerLink="/">
+          <img alt="Logo" src="./assets/img/GeStamp_Duty_250.png" class="logo-default"/>
+        </a>
+      </div>
+    <span></span>
+    
+    <span class="menu-pane-header">
+      <button mat-raised-button color="primary" class="btn btn-lg btn-menu" (click)="navigate('/batch')">Batch</button>
+      <button mat-raised-button color="primary" class="btn btn-lg btn-menu" (click)="navigate('/transaction')">Transaction</button>
+      <button mat-raised-button color="primary" class="btn btn-lg btn-menu" (click)="navigate('/paperstamp')">PaperStamp</button>
+      <button mat-raised-button color="primary" class="btn btn-lg btn-menu" (click)="navigate('/admin')">Admin</button>
+    </span>
+
+    <span class="main-spacer"></span>
+    <!-- ? below menu will help us change the color at run-time. -->
+    <!--
+    <button mat-button [matMenuTriggerFor]="menu" class="menu-button" matTooltip="Select a theme color">
+      {{ themeColor }}
+    </button>
+      
+    <ng-template #noRadio>
+      radio_button_unchecked
+    </ng-template>
+      
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="themeColor = 'primary'">
+        <mat-icon [color]="themeColor === 'primary' ? 'primary' : 'no-color'">
+          <ng-container *ngIf="themeColor === 'primary'; else noRadio">radio_button_checked</ng-container>
+        </mat-icon>
+        Primary
+      </button>
+      <button mat-menu-item (click)="themeColor = 'warn'">
+        <mat-icon [color]="themeColor === 'warn' ? 'warn' : 'no-color'">
+          <ng-container *ngIf="themeColor === 'warn'; else noRadio">radio_button_checked</ng-container>
+        </mat-icon>
+        Warn
+      </button>
+      <button mat-menu-item (click)="themeColor = 'accent'">
+        <mat-icon [color]="themeColor === 'accent' ? 'accent' : 'no-color'">
+          <ng-container *ngIf="themeColor === 'accent'; else noRadio">radio_button_checked</ng-container>
+        </mat-icon>
+        Accent
+      </button>
+    </mat-menu>
+-->
+      <!-- ? below button will help us change the theme at run-time. -->
+      <button mat-icon-button (click)="toggleTheme()" matTooltip="Toggle dark theme">
+      <mat-icon>
+          brightness_6
+      </mat-icon>
+      </button>
+      <!--Profile-->
+      <button mat-icon-button (click)="userProfile()" matTooltip="User Profile">
+        <mat-icon>supervisor_account</mat-icon>
+      </button>
+      <!--log out-->
+      <button mat-icon-button (click)="signout()" matTooltip="Sign Out">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+      
+  </mat-toolbar>
+  <mat-sidenav-container class="main-container">
+        <ng-content></ng-content>
+  </mat-sidenav-container>
+</div>

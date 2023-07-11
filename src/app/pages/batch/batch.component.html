@@ -1,0 +1,226 @@
+<mat-grid-list cols="2"  rowHeight="80px">
+  <mat-grid-tile>
+      <mat-form-field class="example-full-width column-left" appearance="outline" style="width: 40%;">
+          <mat-label>Keyword</mat-label>
+          <input matInput placeholder="" value="" [(ngModel)]="search" (keyup.enter)="onSearch()">
+        </mat-form-field>
+        <button mat-flat-button color="primary" style="right: 5px;" (click)="onSearch()">Search</button>
+        <button mat-stroked-button color="primary" style="right: 0px;" (click)="clear()">Clear</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+      <div  class="column-right">
+          
+      </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div class="card-body">
+  <div class="card-margin text-center">
+    <label class="label-xl">Total Job:</label>
+    <p class="p-xl">{{totalJob | number}}</p>
+    <label class="label-xl">Total Document:</label>
+    <p class="p-xl">{{totalDocument | number}}</p>
+    <label class="label-xl">Total Contract Amount:</label>
+    <p class="p-xl">{{totalAmount | number:'1.2-2'}}</p>
+    <label class="label-xl">Total Paid Amount:</label>
+    <p class="p-xl">{{totalStampDuty | number:'1.2-2'}}</p>
+  </div>
+</div>
+<div class="card gutter-b card-stretch">
+  <div class="card-toolbar">
+  </div>
+  <div class="card-body">
+    <div class="align-center">
+      <ng-container *ngIf="loading">
+        <div class="overlay-layer bg-transparent">
+          <div class="spinner spinner-lg spinner-success"></div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="table-responsive">
+      <table>
+        <tbody>
+          <div *ngIf="items && items.length === 0 && !loading" class="empty">
+            No record found
+          </div>
+          <tr *ngFor="let item of items; let i = index">
+            <td style="text-align: center; vertical-align: middle; width: 15px;">
+              <!-- <mat-checkbox *ngIf="status !== ''" [(ngModel)]="item.checked" (change)="selectItem($event,item);"></mat-checkbox> -->
+              <!-- <mat-checkbox *ngIf="!isLoadAll && allowCheckAll" (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(item) : null; calculateSeleted();"
+                [checked]="selection.isSelected(item)" color="primary">
+              </mat-checkbox> -->
+            </td>
+            <td style="text-align: center; width: 150px;">
+              <div>
+                <button mat-raised-button *ngIf="item.state == 32" 
+                  [color]="item.color" class="btn btn-xl"
+                  (click)="openErrorDialog($event, getRejectReason(item), true)">{{item.status}}
+                </button>
+                <button mat-raised-button *ngIf="item.state == 11 || item.state == 22"
+                  [color]="item.color" class="btn btn-xl"
+                  (click)="openErrorDialog($event,item.remark, true)">{{item.status}}
+                </button>
+                <button mat-raised-button *ngIf="item.state == 52 || item.state == 54 || item.state == 72 || item.state == 82"
+                  [color]="item.color" class="btn btn-xl"
+                  (click)="openErrorDialog($event,item.submitMessage, false)">{{item.status}}
+                </button>
+                <button mat-raised-button *ngIf="item.state != 11 && item.state != 22 && item.state != 32 && item.state != 52 && item.state != 54 && item.state != 72 && item.state != 82"
+                  class="btn btn-xl" [color]="item.color">{{item.status}}
+                </button>
+              </div>
+              <p *ngIf="item.status === 'Preparing' && item.dayToDueDate >= 0 && item.dayToDueDate < 7"
+                class="text-duedate" style="font-size: 14px; color: #D0011B;">
+                <mat-icon class="icon-duedate">error</mat-icon>Due in
+                {{item.dayToDueDate}} days
+              </p>
+              <p *ngIf="item.status === 'Preparing' && item.dayToDueDate < 0" class="text-duedate"
+                style="font-size: 14px; color: #D0011B;" matTooltip="Overdue {{ item.dayToDueDate }} days"
+                matTooltipPosition="below">
+                <mat-icon class="icon-duedate">error</mat-icon>Overdue
+              </p>
+              <p *ngIf="item.status === 'Payment' && item.dayToExpireDate >= 0 && item.dayToExpireDate < 7"
+                class="text-duedate" style="font-size: 14px; color: #D0011B;">
+                <mat-icon class="icon-duedate">error</mat-icon>Pay in {{item.dayToExpireDate}} days
+              </p>
+              <p *ngIf="item.status === 'Payment' && item.dayToExpireDate < 0"
+                class="text-duedate" style="font-size: 14px; color: #D0011B;"
+                matTooltip="Overdue Payment {{item.dayToExpireDate }} days" matTooltipPosition="below">
+                <mat-icon class="icon-duedate">error</mat-icon>Overdue Payment
+              </p>
+            </td>
+            <td style="text-align: left; padding: 10px; cursor: pointer; min-width: 700px;">
+              <div class="row" (click)="gotoBatchDetail($event,item.batchId)">
+                <p class="text-file" style="width: 100%">
+                  JOB&nbsp;&nbsp;{{item.batchId}}&nbsp;&nbsp;--&nbsp;{{item.files}}</p>
+              </div>
+              <div class="row" style="height: 25px;">
+                <mat-icon class="icon-display">text_snippet</mat-icon>
+                <p *ngIf="item.state != 22 && item.state != 11" class="text-info">{{item.transAmount}}</p>
+                <p *ngIf="item.state == 22 || item.state == 11" class="text-info">{{item.count}}</p>
+                <img class="icon" src="assets/img/money.png" class="png-icon" style="width: 30px; height: 30px; margin-top: -4px;" />
+                <p class="text-info">{{item.sumInstAmount | number:'1.2-2'}}</p>
+                <mat-icon class="icon-display">cloud_upload</mat-icon>
+                <p class="text-info" style="width: 180px;">{{item.createDatetimeStr}}</p>
+                <mat-icon class="icon-display">person</mat-icon>
+                <p class="text-info" style="width: 180px;">{{item.createUser}}</p>
+              </div>
+            </td>
+            <td style="text-align: right; vertical-align: middle; min-width: 240px;">
+              <button *ngIf="item.status === 'Input Error' || item.status === 'Rejected' || item.status === 'Submit Error' || item.status === 'Filing Error'" class="btn btn-main btn-l"
+                (click)="exportFixExcel($event, item)">Export Fixes</button>
+              <mat-button-toggle-group [disabled]="loading" *ngIf="item.status === 'Input Error' || item.status === 'Rejected' || item.status === 'Submit Error' || item.status === 'Filing Error'" >
+                <mat-button-toggle class="btn btn-main btn-toggle btn-more" style="width: 10px; line-height: 48px;" [disabled]="loading"
+                  [matMenuTriggerFor]="dropdownMenu">
+                  <mat-icon class="dd-submit">expand_more</mat-icon>
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+              <mat-menu #dropdownMenu="matMenu">
+                <button mat-menu-item style="margin-right: 10px;" (click)="exportFixCsv($event, item)" [disabled]="loading">Export for new batch</button>
+              </mat-menu>
+
+              <button *ngIf="item.status === 'Payment'" class="btn btn-main"
+                (click)="viewQRcodeDialog($event, item.qrPaymentFilePath)">QR</button>
+              <button *ngIf="item.status === 'Payment'" class="btn btn-main"
+                (click)="download($event, item.payinSlipFilePath)">Pay-in</button>
+              <button *ngIf="item.status === 'Completed'" type="button" class="btn btn-main" style="width: 170px;"
+                (click)="downloadPayment($event, item.batchId);">Proof of Payment</button>
+
+              <span *ngxPermissionsExcept="batchViewPerm.deleteBatch">
+                <button *ngIf="item.status === 'Input Error' || item.status === 'Rejected' || item.status === 'Submit Error'" type="button"
+                class="btn btn-icn" (click)="delete($event, item.batchId)" [disabled]="!item.downloaded">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button *ngIf="item.status === 'Preparing' || item.status === 'Reviewing' || item.status === 'Uploading'" type="button"
+                class="btn btn-icn" (click)="delete($event, item.batchId)">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button *ngIf="item.status !== 'Preparing' && item.status !== 'Input Error' && item.status !== 'Rejected' && item.status !== 'Reviewing' && item.status !== 'Submit Error' && item.status !== 'Uploading'"
+                type="button" class="btn btn-icn" disabled style="background-color: #7C8FAB;">
+                <mat-icon>delete</mat-icon>
+              </button>
+              </span>
+              <span *ngxPermissionsOnly="batchViewPerm.deleteBatch">
+                <button class="btn btn-icn" (click)="delete($event, item.batchId)" [disabled]="item.state >= 60"><mat-icon>delete</mat-icon></button>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center; vertical-align: middle; width: 15px;">
+              <mat-checkbox></mat-checkbox>
+              <!-- <mat-checkbox *ngIf="!isLoadAll && allowCheckAll" (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(item) : null; calculateSeleted();"
+                [checked]="selection.isSelected(item)" color="primary">
+              </mat-checkbox> -->
+            </td>
+            <td style="text-align: center; width: 150px;">
+              <div>
+                <button mat-raised-button class="btn btn-xl" color="primary">Status</button>
+              </div>
+              <p class="text-duedate" style="font-size: 14px; color: #D0011B;">
+                <mat-icon class="icon-duedate">error</mat-icon>Due in 6 days
+              </p>
+            </td>
+            <td style="text-align: left; padding: 10px; cursor: pointer; min-width: 700px;">
+              <div class="row" (click)="gotoBatchDetail($event,0)">
+                <p class="text-file" style="width: 100%">
+                  BATCH&nbsp;9999&nbsp;&nbsp;--&nbsp;Batch Test</p>
+              </div>
+              <div class="row" style="height: 25px;">
+                <mat-icon class="icon-display">text_snippet</mat-icon>
+                <p class="text-info">999</p>
+                <mat-icon class="icon-display">receipt</mat-icon>
+                <p class="text-info">{{ 12345 | number:'1.2-2'}}</p>
+                <mat-icon class="icon-display">cloud_upload</mat-icon>
+                <p class="text-info" style="width: 180px;">2023-01-01 23:59 UTC</p>
+                <mat-icon class="icon-display">person</mat-icon>
+                <p class="text-info" style="width: 180px;">Upload User</p>
+              </div>
+            </td>
+            <td style="text-align: right; vertical-align: middle; min-width: 240px; margin-right: 10px;">
+              <button mat-flat-button color="primary">Export Fixes</button>
+              <!-- <mat-button-toggle-group>
+                <mat-button-toggle class="btn btn-main btn-toggle btn-more" style="width: 10px; line-height: 48px;"
+                  [matMenuTriggerFor]="dropdownMenu">
+                  <mat-icon class="dd-submit">expand_more</mat-icon>
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+              <mat-menu #dropdownMenu="matMenu">
+                <button mat-menu-item style="margin-right: 10px;">Export for new batch</button>
+              </mat-menu> -->
+
+              <button  mat-flat-button color="primary" class="btn" (click)="viewQRcodeDialog($event, 'item.qrPaymentFilePath')">QR</button>
+              <button  mat-flat-button color="primary" class="btn" (click)="download($event, 'item.payinSlipFilePath')">Pay-in</button>
+              <button  mat-flat-button color="primary" class="btn" style="width: 170px;" (click)="downloadPayment($event, 0);">Proof of Payment</button>
+              <button mat-flat-button color="primary" class="btn-icn" (click)="delete($event, 0)"><mat-icon>delete</mat-icon></button>
+            </td>
+            <td>
+              <button mat-icon-button [matMenuTriggerFor]="menu" color="primary" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon>dialpad</mat-icon>
+                  <span>Redial</span>
+                </button>
+                <button mat-menu-item disabled>
+                  <mat-icon>voicemail</mat-icon>
+                  <span>Check voice mail</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>notifications_off</mat-icon>
+                  <span>Disable alerts</span>
+                </button>
+              </mat-menu>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <mat-paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+      [pageSizeOptions]="[50, 100, 200]" (page)="pageEvent = handlePage($event)">
+    </mat-paginator>
+  </div>
+</div>

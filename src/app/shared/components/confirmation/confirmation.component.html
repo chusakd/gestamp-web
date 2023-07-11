@@ -1,0 +1,16 @@
+<div class="align-center">
+   <mat-icon color="accent" inline="true" class="icon-big">{{titleIcon}}</mat-icon>
+ </div>
+<div class="card-cus">
+   <h1 mat-dialog-title *ngIf="options.title" [class]="titleColor" style="text-align: center;">
+      {{titleText}}
+   </h1>
+   <mat-dialog-content *ngIf="options.message" [innerHtml]="options.message" [class]="contentClass"></mat-dialog-content>
+   <!-- <app-loading *ngIf="busy"></app-loading> -->
+   <mat-dialog-actions class="align-center">
+      <button *ngIf="options.close" mat-stroked-button mat-dialog-close class="btn btn-blue btn-lg">{{options.close}}</button>
+      <!-- <button *ngIf="options.accept" mat-flat-button #button color="{{acceptColor}}" (click)="accept()" class="btn btn-main btn-lg" [disabled]="busy">{{acceptLabel}}</button> -->
+      <button *ngIf="options.accept" mat-flat-button #button (click)="accept()" class="btn btn-main btn-lg" [disabled]="busy">{{acceptLabel}}</button>
+   </mat-dialog-actions>
+</div>
+

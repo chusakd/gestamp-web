@@ -1,0 +1,40 @@
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    padding-bottom: 16px;
+  }
+  
+  .mat-card {
+    width: 400px;
+    position: relative;
+  }
+  
+  h2 {
+    line-height: 1.2;
+    text-align: center;
+  }
+  
+  button {
+    width: 100%;
+  }
+  
+  a {
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 1.25em;
+  }
+  .main-card {
+    width: 400px;
+    padding: 20px;
+  }
+  .img-logo {
+    margin: 60px;
+    display: flex;
+    align-items: center;
+  }
+  .input {
+    width: 100%;
+  }
