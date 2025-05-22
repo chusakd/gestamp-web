@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: gestamp-web
+  annotations:
+    github.com/project-slug: chusakd/gestamp-web
+spec:
+  type: other
+  lifecycle: unknown
+  owner: guests
